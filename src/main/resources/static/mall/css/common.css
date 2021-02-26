@@ -1,0 +1,151 @@
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  list-style-type: none;
+  font-family: Microsoft Yahei;
+}
+@media screen and (max-width: 1225px) {
+  body {
+    width: 1226px;
+  }
+}
+img {
+  border: none;
+  max-width: 100%;
+  max-height: 100%;
+}
+a {
+  border: none;
+  text-decoration: none;
+  color: #000;
+}
+.border {
+  border: 1px solid #f00;
+}
+.center {
+  margin: 0 auto;
+}
+.w {
+  width: 1226px;
+  margin: 0 auto;
+}
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
+}
+.clear {
+  clear: both;
+}
+.clearfix::after {
+  content: "";
+  height: 0;
+  display: block;
+  clear: both;
+  visibility: hidden;
+}
+.mt20 {
+  margin-top: 20px;
+}
+.mt10 {
+  margin-top: 10px;
+}
+.ml20 {
+  margin-left: 20px;
+}
+.ml40 {
+  margin-left: 40px;
+}
+.mr40 {
+  margin-right: 40px;
+}
+.mb20 {
+  margin-bottom: 20px;
+}
+.border2 {
+  border: 2px solid #ff6700;
+}
+.ft20 {
+  font-size: 20px;
+}
+.ftbc {
+  color: #ff6700;
+  font-weight: bold;
+}
+.pr {
+  padding-right: 40px;
+}
+.h3 {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+*  {
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+body {
+  color: #333;
+  font-size: 1em;
+}
+a:link,
+a:visited,
+a:hover,
+a:active {
+  color: #000;
+  text-decoration: none;
+}
+.sub_top fl {
+  margin: 50px auto;
+  padding: 0 50px;
+  max-width: 960px;
+}
+table {
+  background: #FFF;
+  border-collapse: collapse;
+  width: 100%;
+}
+td,
+th {
+  padding: 4px;
+  border: 1px solid #CCC;
+  overflow: hidden;
+  text-align: left;
+  vertical-align: middle;
+}
+th {
+  background-color: #DDD;
+  font-weight: 400;
+}
+th a,
+td a {
+  display: block;
+  width: 100%;
+}
+th a.sort-by {
+  padding-right: 18px;
+  position: relative;
+}
+a.sort-by:before,
+a.sort-by:after {
+  border: 4px solid transparent;
+  content: "";
+  display: block;
+  height: 0;
+  right: 5px;
+  top: 50%;
+  position: absolute;
+  width: 0;
+}
+a.sort-by:before {
+  border-bottom-color: #666;
+  margin-top: -9px;
+}
+a.sort-by:after {
+  border-top-color: #666;
+  margin-top: 1px;
+}

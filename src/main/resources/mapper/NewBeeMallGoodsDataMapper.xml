@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ltd.newbee.mall.dao.NewBeeMallGoodsDataMapper">
+
+    <insert id="insert" parameterType="ltd.newbee.mall.entity.NewBeeMallGoodsData">
+        insert into tb_newbee_mall_shopping_cart_item (data_id, user_id, goods_id, check_time, is_deleted)
+        values (#{dataId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{goodsId,jdbcType=BIGINT},
+                #{checkTime,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=TINYINT})
+    </insert>
+
+    <insert id="insertSelective" parameterType="ltd.newbee.mall.entity.NewBeeMallGoodsData">
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="dataId != null">
+                data_id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="goodsId != null">
+                goods_id,
+            </if>
+            <if test="checkTime != null">
+                check_time,
+            </if>
+            <if test="isDeleted != null">
+                is_deleted,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="dataId != null">
+                #{dataId,jdbcType=BIGINT},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="goodsId != null">
+                #{goodsId,jdbcType=BIGINT},
+            </if>
+            <if test="checkTime != null">
+                #{checkTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isDeleted != null">
+                #{isDeleted,jdbcType=TINYINT},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="ltd.newbee.mall.entity.NewBeeMallGoodsData">
+        update tb_newbee_mall_goods_data
+        set user_id    = #{userId,jdbcType=BIGINT},
+            goods_id   = #{goodsId,jdbcType=BIGINT},
+            check_time = #{checkTime,jdbcType=TIMESTAMP},
+            where data_id = #{dataId,jdbcType=BIGINT} and is_deleted = 0
+    </update>
+
+    <update id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        update tb_newbee_mall_goods_data
+        set is_deleted = 1
+        where data_id = #{dataId,jdbcType=BIGINT}
+          and is_deleted = 0
+    </update>
+
+    <update id="updateByPrimaryKeySelective" parameterType="ltd.newbee.mall.entity.NewBeeMallGoodsData">
+        update tb_newbee_mall_goods_data
+        <set>
+        <if test="userId != null">
+            user_id = #{userId,jdbcType=BIGINT},
+        </if>
+        <if test="goodsId != null">
+            goods_id = #{goodsId,jdbcType=BIGINT},
+        </if>
+        <if test="checkTime != null">
+            check_time = #{checkTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="isDeleted != null">
+            is_deleted = #{isDeleted,jdbcType=TINYINT},
+        </if>
+        </set>
+        where data_id = #{dataId,jdbcType=BIGINT}
+    </update>
+
+    <select id="selectByPrimaryKey" resultType="ltd.newbee.mall.entity.NewBeeMallGoodsData">
+        select user_id, goods_id
+        from tb_newbee_mall_goods_data
+        where data_id = #{dataId,jdbcType=BIGINT}
+          and is_deleted = 0
+        order by check_time limit 5
+    </select>
+    <select id="selectByUserIdAndGoodsId" resultType="ltd.newbee.mall.entity.NewBeeMallGoodsData">
+        select data_id, user_id, goods_id, check_time, is_deleted
+        from tb_newbee_mall_goods_data
+        where user_id = #{newBeeMallUserId,jdbcType=BIGINT}
+          and goods_id = #{goodsId,jdbcType=BIGINT}
+          and is_deleted = 0 limit 1
+    </select>
+
+    <select id="selectByUserId" resultType="ltd.newbee.mall.entity.NewBeeMallGoodsData">
+        select data_id, user_id, goods_id, check_time, is_deleted
+        from tb_newbee_mall_shopping_cart_item
+        where user_id = #{newBeeMallUserId,jdbcType=BIGINT} and is_deleted = 0
+        order by check_time
+        limit #{number}
+    </select>
+
+
+</mapper>
