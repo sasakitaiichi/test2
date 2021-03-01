@@ -23,7 +23,7 @@ public interface NewBeeMallGoodsDataService {
      * @param newBeeMallGoodsData
      * @return
      */
-    String updateNewBeeMallGoodsData(NewBeeMallGoodsData newBeeMallGoodsData);
+    String insertNewBeeMallGoodsData(NewBeeMallGoodsData newBeeMallGoodsData);
 
     /**
      * 获取商品详情

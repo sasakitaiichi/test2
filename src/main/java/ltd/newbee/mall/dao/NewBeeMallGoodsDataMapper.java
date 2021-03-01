@@ -16,7 +16,7 @@ public interface NewBeeMallGoodsDataMapper {
 
     NewBeeMallGoodsData selectByUserIdAndGoodsId(@Param("newBeeMallUserId") Long newBeeMallUserId, @Param("goodsId") Long goodsId);
 
-    List<NewBeeMallGoodsData> selectByUserId(@Param("newBeeMallUserId") Long newBeeMallUserId, @Param("number") int number);
+    List<NewBeeMallGoodsData> selectByUserId(Long newBeeMallUserId);
 
     int updateByPrimaryKey(NewBeeMallGoodsData record);
 

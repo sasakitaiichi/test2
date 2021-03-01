@@ -392,6 +392,18 @@
         </if>
     </select>
 
+<!--    added 2021/02/28 sasaki for ランキング-->
+    <select id="selectByHotGoods" resultType="map">
+        SELECT tb_newbee_mall_goods_info.goods_id,tb_newbee_mall_goods_info.goods_name,tb_newbee_mall_goods_info.goods_intro,tb_newbee_mall_goods_info.selling_price,tb_newbee_mall_goods_info.goods_category_id,tb_newbee_mall_goods_info.goods_cover_img,tb_newbee_mall_goods_info.goods_sell_status,
+               tb_newbee_mall_goods_info.create_time
+        from tb_newbee_mall_goods_info
+                 inner join tb_newbee_mall_order_item on tb_newbee_mall_goods_info.goods_id = tb_newbee_mall_order_item.goods_id
+        where tb_newbee_mall_goods_info.goods_category_id = any
+              (select category_id from newbee_mall_db.tb_newbee_mall_goods_category where parent_id = 19)
+        order by tb_newbee_mall_order_item.goods_count asc
+        limit 5
+    </select>
+
 
 
 

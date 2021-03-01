@@ -38,5 +38,13 @@ public interface NewBeeMallIndexConfigService {
      */
     List<NewBeeMallIndexConfigGoodsVO> getConfigGoodsesForIndex(int configType, int number);
 
+    /**
+     * 返回固定数量的首页配置ランキング商品对象(首页调用)
+     *added 2021/02/28 sasaki for ランキング
+     * @param number
+     * @return
+     */
+    List<NewBeeMallIndexConfigGoodsVO> getConfigHotGoodsesForIndex(int configType, int number);
+
     Boolean deleteBatch(Long[] ids);
 }

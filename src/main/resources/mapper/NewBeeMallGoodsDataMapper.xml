@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ltd.newbee.mall.dao.NewBeeMallGoodsDataMapper">
+    <resultMap id="BaseResultMap" type="ltd.newbee.mall.entity.NewBeeMallGoodsData">
+        <id column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="data_id" jdbcType="BIGINT" property="dataId"/>
+        <result column="goods_id" jdbcType="BIGINT" property="goodsId"/>
+        <result column="is_deleted" jdbcType="TINYINT" property="isDeleted"/>
+        <result column="check_time" jdbcType="TIMESTAMP" property="checkTime"/>
+    </resultMap>
 
     <insert id="insert" parameterType="ltd.newbee.mall.entity.NewBeeMallGoodsData">
-        insert into tb_newbee_mall_shopping_cart_item (data_id, user_id, goods_id, check_time, is_deleted)
+        insert into tb_newbee_mall_goods_data (data_id, user_id, goods_id, check_time, is_deleted)
         values (#{dataId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{goodsId,jdbcType=BIGINT},
                 #{checkTime,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=TINYINT})
     </insert>
@@ -94,12 +101,13 @@
           and is_deleted = 0 limit 1
     </select>
 
-    <select id="selectByUserId" resultType="ltd.newbee.mall.entity.NewBeeMallGoodsData">
+    <select id="selectByUserId" resultMap="BaseResultMap">
         select data_id, user_id, goods_id, check_time, is_deleted
-        from tb_newbee_mall_shopping_cart_item
-        where user_id = #{newBeeMallUserId,jdbcType=BIGINT} and is_deleted = 0
+        from tb_newbee_mall_goods_data
+        where user_id = #{userId,jdbcType=BIGINT}
+--         where user_id = 1
         order by check_time
-        limit #{number}
+        limit 5
     </select>
 
 

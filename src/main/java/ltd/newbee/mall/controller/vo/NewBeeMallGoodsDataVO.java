@@ -16,6 +16,8 @@ public class NewBeeMallGoodsDataVO implements Serializable {
 
     private Integer sellingPrice;
 
+    private String goodsIntro;
+
     public Long getGoodsId() {
         return goodsId;
     }
@@ -62,6 +64,14 @@ public class NewBeeMallGoodsDataVO implements Serializable {
 
     public void setGoodsCount(Integer goodsCount) {
         this.goodsCount = goodsCount;
+    }
+
+    public String getGoodsIntro() {
+        return goodsIntro;
+    }
+
+    public void setGoodsIntro(String goodsIntro) {
+        this.goodsIntro = goodsIntro;
     }
 }
 

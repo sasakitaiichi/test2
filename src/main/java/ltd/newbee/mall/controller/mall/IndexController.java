@@ -10,11 +10,10 @@ package ltd.newbee.mall.controller.mall;
 
 import ltd.newbee.mall.common.Constants;
 import ltd.newbee.mall.common.IndexConfigTypeEnum;
-import ltd.newbee.mall.controller.vo.NewBeeMallIndexCarouselVO;
-import ltd.newbee.mall.controller.vo.NewBeeMallIndexCategoryVO;
-import ltd.newbee.mall.controller.vo.NewBeeMallIndexConfigGoodsVO;
+import ltd.newbee.mall.controller.vo.*;
 import ltd.newbee.mall.service.NewBeeMallCarouselService;
 import ltd.newbee.mall.service.NewBeeMallCategoryService;
+import ltd.newbee.mall.service.NewBeeMallGoodsDataService;
 import ltd.newbee.mall.service.NewBeeMallIndexConfigService;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
@@ -22,6 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -36,8 +36,16 @@ public class IndexController {
     @Resource
     private NewBeeMallCategoryService newBeeMallCategoryService;
 
+    @Resource
+    private NewBeeMallGoodsDataService newBeeMallGoodsDataService;
+
     @GetMapping({"/index", "/", "/index.html"})
-    public String indexPage(HttpServletRequest request) {
+    public String indexPage(HttpServletRequest request, HttpSession httpSession) {
+        List<NewBeeMallGoodsDataVO> myGoodsDatas = null;
+        NewBeeMallUserVO user = (NewBeeMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
+        if (user != null) {
+             myGoodsDatas = newBeeMallGoodsDataService.getGoodsDataS(user.getUserId());
+        }
         List<NewBeeMallIndexCategoryVO> categories = newBeeMallCategoryService.getCategoriesForIndex();
         if (CollectionUtils.isEmpty(categories)) {
             return "error/error_5xx";
@@ -46,11 +54,16 @@ public class IndexController {
         List<NewBeeMallIndexConfigGoodsVO> hotGoodses = newBeeMallIndexConfigService.getConfigGoodsesForIndex(IndexConfigTypeEnum.INDEX_GOODS_HOT.getType(), Constants.INDEX_GOODS_HOT_NUMBER);
         List<NewBeeMallIndexConfigGoodsVO> newGoodses = newBeeMallIndexConfigService.getConfigGoodsesForIndex(IndexConfigTypeEnum.INDEX_GOODS_NEW.getType(), Constants.INDEX_GOODS_NEW_NUMBER);
         List<NewBeeMallIndexConfigGoodsVO> recommendGoodses = newBeeMallIndexConfigService.getConfigGoodsesForIndex(IndexConfigTypeEnum.INDEX_GOODS_RECOMMOND.getType(), Constants.INDEX_GOODS_RECOMMOND_NUMBER);
+      //  NewBeeMallUserVO user = (NewBeeMallUserVO) httpSession.getAttribute(Constants.MALL_USER_SESSION_KEY);
+        List<NewBeeMallIndexConfigGoodsVO> rankingGoodses = newBeeMallIndexConfigService.getConfigGoodsesForIndex(IndexConfigTypeEnum.INDEX_GOODS_RECOMMOND.getType(), Constants.INDEX_GOODS_RECOMMOND_NUMBER);
+
+        request.setAttribute("myGoodsDatas",myGoodsDatas);
         request.setAttribute("categories", categories);//分类数据
         request.setAttribute("carousels", carousels);//轮播图
         request.setAttribute("hotGoodses", hotGoodses);//热销商品
         request.setAttribute("newGoodses", newGoodses);//新品
         request.setAttribute("recommendGoodses", recommendGoodses);//推荐商品
+        request.setAttribute("rankingGoodses",rankingGoodses);//カテゴリーランキング
         return "mall/index";
     }
 }

@@ -49,6 +49,9 @@ public interface NewBeeMallGoodsMapper {
     //added 2021/02/22 order by price
     List<NewBeeMallGoods> selectBySellingPrice(List<Long> list,String order,String orderBy);
 
+    //added 2021/02/28 sasaki for ランキング
+    List<NewBeeMallGoods> selectByHotGoods(List<Long> goodsIds);
+
 
 
 }

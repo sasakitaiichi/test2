@@ -10,25 +10,31 @@
     <div id="banner">
         <div class="all-sort-list">
             <th:block th:each="category : ${categories}">
-            <div class="item">
-                <h3><span>·</span><a href="##"><th:block th:text="${category.categoryName}"></th:block></a></h3>
-                <div class="item-list clearfix">
-                    <div class="subitem">
-                        <th:block th:each="secondLevelCategory : ${category.secondLevelCategoryVOS}">
-                        <dl class="fore1">
-                            <dt><a href="#"><th:block th:text="${secondLevelCategory.categoryName}"></th:block></a></dt>
-                            <dd>
-                                <th:block th:each="thirdLevelCategory : ${secondLevelCategory.thirdLevelCategoryVOS}">
-                                <em><a href="#"th:href="@{'/search?goodsCategoryId='+${thirdLevelCategory.categoryId}}">
-                                    <th:block th:text="${thirdLevelCategory.categoryName}"></th:block>
-                                </a></em>
-                                </th:block>
-                            </dd>
-                        </dl>
-                        </th:block>
+                <div class="item">
+                    <h3><span>·</span><a href="##">
+                        <th:block th:text="${category.categoryName}"></th:block>
+                    </a></h3>
+                    <div class="item-list clearfix">
+                        <div class="subitem">
+                            <th:block th:each="secondLevelCategory : ${category.secondLevelCategoryVOS}">
+                                <dl class="fore1">
+                                    <dt><a href="#">
+                                        <th:block th:text="${secondLevelCategory.categoryName}"></th:block>
+                                    </a></dt>
+                                    <dd>
+                                        <th:block
+                                                th:each="thirdLevelCategory : ${secondLevelCategory.thirdLevelCategoryVOS}">
+                                            <em><a href="#"
+                                                   th:href="@{'/search?goodsCategoryId='+${thirdLevelCategory.categoryId}}">
+                                                <th:block th:text="${thirdLevelCategory.categoryName}"></th:block>
+                                            </a></em>
+                                        </th:block>
+                                    </dd>
+                                </dl>
+                            </th:block>
+                        </div>
                     </div>
                 </div>
-            </div>
             </th:block>
         </div>
         <div class="swiper-container fl">
@@ -98,6 +104,26 @@
         </th:block>
     </div>
 
+    <div id="ranking">
+        <h2>ランキング</h2>
+        <ul>
+            <th:block th:unless="${#lists.isEmpty(rankingGoodses)}">
+                <th:block th:each="rankeGoodses}">
+<!--                <th:block th:each="rankeGoodses : ${rankingGoodses}">-->
+<!--                    <li>-->
+<!--                        <a th:href="@{'/goods/detail/'+${rankeGoodses.goodsId}}">-->
+<!--                            <img th:src="@{${rankeGoodses.goodsCoverImg}}" th:alt="${rankeGoodses.goodsName}">-->
+<!--                            <p class="name" th:text="${rankeGoodses.goodsName}">NewBeeMall</p>-->
+<!--                            <p class="discount" th:text="${rankeGoodses.goodsIntro}">NewBeeMall</p>-->
+<!--                            <p class="item_price" th:text="${rankeGoodses.sellingPrice}">NewBeeMall</p>-->
+<!--                        </a>-->
+<!--                    </li>-->
+                </th:block>
+            </th:block>
+        </ul>
+    </div>
+
+
     <div id="flash">
         <h2>新品上线</h2>
         <ul>
@@ -160,22 +186,25 @@
             </th:block>
         </ul>
     </div>
-
+    <th:block th:if="${myGoodsDatas != null}">
     <div id="recode">
         <h2>最近瀏覽</h2>
         <ul>
-            <th:block th:unless="${#lists.isEmpty(recodeGoodses)}">
-                <th:block th:each="newGoods : ${recodeGoodses}">
+            <th:block th:unless="${#lists.isEmpty(myGoodsDatas)}">
+                <th:block th:each="myGoodsDatasGoods : ${myGoodsDatas}">
                     <li>
-                        <a th:href="@{'/goods/detail/'+${recodeGoods.goodsId}}">
-                            <img th:src="@{${Goods.goodsCoverImg}}" th:alt="${recodeGoods.goodsName}">
-                            <p class="name" th:text="${recodeGoods.goodsName}">NewBeeMall</p>
-                            <p class="discount" th:text="${recodeGoods.goodsIntro}">NewBeeMall</p>
-                            <p class="item_price" th:text="${recodeGoods.sellingPrice}">NewBeeMall</p>
+                        <a th:href="@{'/goods/detail/'+${myGoodsDatasGoods.goodsId}}">
+                            <img th:src="@{${myGoodsDatasGoods.goodsCoverImg}}" th:alt="${myGoodsDatasGoods.goodsName}">
+                            <p class="name" th:text="${myGoodsDatasGoods.goodsName}">NewBeeMall</p>
+                            <p class="discount" th:text="${myGoodsDatasGoods.goodsIntro}">NewBeeMall</p>
+                            <p class="item_price" th:text="${myGoodsDatasGoods.sellingPrice}">NewBeeMall</p>
                         </a>
                     </li>
                 </th:block>
             </th:block>
+        </ul>
+    </div>
+    </th:block>
 
     <div id="recommend">
         <h2>为你推荐</h2>
